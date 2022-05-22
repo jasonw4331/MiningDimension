@@ -1,0 +1,11 @@
+name: MiningDimension
+main: jasonwynn10\MiningDimension\MiningDimension
+src-namespace-prefix: jasonwynn10\MiningDimension
+version: 1.0.0-beta1
+api: 4.0.0
+author: jasonwynn10
+description: "A plugin which creates a world specifically for mining"
+depend:
+ - Customies
+softdepend:
+ - NativeDimensions

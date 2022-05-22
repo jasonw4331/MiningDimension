@@ -1,0 +1,17 @@
+{
+	"num_mip_levels": 0,
+	"padding": 0,
+	"resource_pack_name": "MiningDimension",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"mining_portal_frame": {
+			"textures": "textures/block/mining_portal_frame"
+		},
+		"sticky_ore": {
+			"textures": "textures/block/sticky_ore"
+		},
+		"mining_portal": {
+			"textures": "textures/block/mining_portal"
+		}
+	}
+}

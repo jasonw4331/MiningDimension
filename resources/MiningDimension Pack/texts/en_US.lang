@@ -1,0 +1,5 @@
+tile.MiningDimension:mining_portal_frame.name=Portal Frame
+tile.MiningDimension:sticky_ore.name=Sticky Ore
+tile.MiningDimension:mining_portal.name=Mining Portal Block
+item.MiningDimension:mining_multitool=Mining Multitool
+item.MiningDimension:dimension_changer=DimensionChanger
