@@ -25,7 +25,7 @@ final class MiningMultiTool extends Tool implements ItemComponents{
 		$this->addProperty('creative_category', 4);
 		$this->addComponent('minecraft:durability', CompoundTag::create()
 			->setInt('damage_chance', 100)
-			->setInt('max_durability', 12)
+			->setInt('max_durability', 19)
 		);
 		$this->addComponent('minecraft:throwable', CompoundTag::create()
 			->setByte('do_swing_animation', 0)
