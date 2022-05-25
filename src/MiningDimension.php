@@ -107,7 +107,7 @@ final class MiningDimension extends PluginBase {
 				$itemFactory->get($namespace.'mining_multitool')
 			]
 		));
-		for($i = 1; $i < 20; ++$i) { // scale damage up to tool max durability
+		for($i = 1; $i < 9; ++$i) { // scale damage up to tool max durability
 			$craftManager->registerShapelessRecipe(new DurabilityShapelessRecipe(
 				[
 					VanillaBlocks::STONE_BRICKS()->asItem()->setCount($i),
