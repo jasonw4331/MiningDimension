@@ -3,7 +3,7 @@
     "header": {
         "description": "MiningDimension Plugin Resources",
         "name": "MiningDimension",
-        "uuid": "13a1c9d4-650f-4809-be33-bc7f1c438b90",
+        "uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
         "version": [
             1,
             0,
@@ -19,7 +19,7 @@
         {
             "description": "MiningDimension Plugin Resources",
             "type": "resources",
-            "uuid": "cb858819-e1ba-40e5-b066-4635265d6df1",
+            "uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
             "version": [
                 1,
                 0,
