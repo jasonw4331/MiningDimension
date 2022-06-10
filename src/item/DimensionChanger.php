@@ -21,7 +21,7 @@ final class DimensionChanger extends Item implements Releasable, ItemComponents{
 		$this->initComponent('dimension_changer', 1);
 		$this->addProperty('creative_group', 'Items');
 		$this->addProperty('creative_category', 4);
-		$this->addComponent('minecraft:projectile', CompoundTag::create());
+//		$this->addComponent('minecraft:projectile', CompoundTag::create());
 		$this->addComponent('minecraft:throwable', CompoundTag::create()
 			->setByte('do_swing_animation', 0)
 			->setFloat('launch_power_scale', 1.0)
