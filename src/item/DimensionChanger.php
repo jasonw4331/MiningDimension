@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace jasonwynn10\MiningDimension\item;
 
+use customiesdevs\customies\item\ItemComponents;
+use customiesdevs\customies\item\ItemComponentsTrait;
 use jasonwynn10\MiningDimension\MiningDimension;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
@@ -10,8 +12,6 @@ use pocketmine\item\Releasable;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
 use pocketmine\Server;
-use twistedasylummc\customies\item\ItemComponents;
-use twistedasylummc\customies\item\ItemComponentsTrait;
 
 final class DimensionChanger extends Item implements Releasable, ItemComponents{
 	use ItemComponentsTrait;

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace jasonwynn10\MiningDimension\block;
 
+use customiesdevs\customies\block\CustomiesBlockFactory;
 use pocketmine\block\NetherPortal;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\Entity;
@@ -11,7 +12,6 @@ use pocketmine\math\Facing;
 use pocketmine\player\Player;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\Position;
-use twistedasylummc\customies\block\CustomiesBlockFactory;
 
 final class MiningPortal extends NetherPortal{
 

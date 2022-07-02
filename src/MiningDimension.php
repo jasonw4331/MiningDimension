@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace jasonwynn10\MiningDimension;
 
+use customiesdevs\customies\block\CustomiesBlockFactory;
+use customiesdevs\customies\item\CustomiesItemFactory;
 use jasonwynn10\MiningDimension\block\MiningPortal;
 use jasonwynn10\MiningDimension\block\PortalFrameBlock;
 use jasonwynn10\MiningDimension\block\StickyOre;
@@ -9,6 +11,7 @@ use jasonwynn10\MiningDimension\item\DimensionChanger;
 use jasonwynn10\MiningDimension\item\MiningMultiTool;
 use jasonwynn10\MiningDimension\recipe\DurabilityShapelessRecipe;
 use jasonwynn10\MiningDimension\world\MiningWorldGenerator;
+use libCustomPack\libCustomPack;
 use pocketmine\block\Air;
 use pocketmine\block\BlockBreakInfo;
 use pocketmine\block\Fire;
@@ -30,18 +33,14 @@ use pocketmine\math\Vector3;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\resourcepacks\ResourcePack;
-use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\scheduler\CancelTaskException;
 use pocketmine\scheduler\ClosureTask;
-use pocketmine\utils\Filesystem;
 use pocketmine\world\generator\GeneratorManager;
 use pocketmine\world\generator\InvalidGeneratorOptionsException;
 use pocketmine\world\particle\DustParticle;
 use pocketmine\world\Position;
 use pocketmine\world\World;
 use pocketmine\world\WorldCreationOptions;
-use twistedasylummc\customies\block\CustomiesBlockFactory;
-use twistedasylummc\customies\item\CustomiesItemFactory;
 use Webmozart\PathUtil\Path;
 
 final class MiningDimension extends PluginBase {

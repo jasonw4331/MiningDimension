@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace jasonwynn10\MiningDimension\item;
 
+use customiesdevs\customies\item\ItemComponents;
+use customiesdevs\customies\item\ItemComponentsTrait;
 use pocketmine\block\Air;
 use pocketmine\block\Block;
 use pocketmine\block\VanillaBlocks;
@@ -12,8 +14,6 @@ use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
 use pocketmine\world\sound\FlintSteelSound;
-use twistedasylummc\customies\item\ItemComponents;
-use twistedasylummc\customies\item\ItemComponentsTrait;
 
 final class MiningMultiTool extends Tool implements ItemComponents{
 	use ItemComponentsTrait;
