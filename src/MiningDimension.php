@@ -14,6 +14,7 @@ use jasonwynn10\MiningDimension\world\MiningWorldGenerator;
 use libCustomPack\libCustomPack;
 use pocketmine\block\Air;
 use pocketmine\block\BlockBreakInfo;
+use pocketmine\block\BlockIdentifier;
 use pocketmine\block\Fire;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\color\Color;
@@ -79,7 +80,7 @@ final class MiningDimension extends PluginBase {
 		}
 
 		foreach($toBeRegistered as $blockName => $class) {
-			$blockFactory->registerBlock($class, $namespace.$blockName, ucwords(str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible());
+			$blockFactory->registerBlock(static fn($id) => new $class(new BlockIdentifier($id, 0), ucwords(str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible()), $namespace.$blockName);
 			$blockInstance = $blockFactory->get($namespace.$blockName);
 			StringToItemParser::getInstance()->registerBlock($blockName, static fn(string $input) => $blockInstance);
 			CreativeInventory::getInstance()->add($blockInstance->asItem());
