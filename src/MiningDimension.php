@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace jasonwynn10\MiningDimension;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
+use customiesdevs\customies\item\CreativeInventoryInfo;
 use customiesdevs\customies\item\CustomiesItemFactory;
 use jasonwynn10\MiningDimension\block\MiningPortal;
 use jasonwynn10\MiningDimension\block\PortalFrameBlock;
@@ -23,7 +24,6 @@ use pocketmine\event\block\BlockUpdateEvent;
 use pocketmine\event\EventPriority;
 use pocketmine\event\player\PlayerItemUseEvent;
 use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\inventory\CreativeInventory;
 use pocketmine\item\ItemFactory;
 use pocketmine\item\ItemIds;
 use pocketmine\item\StringToItemParser;
@@ -80,7 +80,12 @@ final class MiningDimension extends PluginBase {
 		}
 
 		foreach($toBeRegistered as $blockName => $class) {
-			$blockFactory->registerBlock(static fn($id) => new $class(new BlockIdentifier($id, 0), ucwords(str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible()), $namespace.$blockName);
+			$blockFactory->registerBlock(
+				static fn($id) => new $class(new BlockIdentifier($id, 0), ucwords(str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible()),
+				$namespace.$blockName,
+				null,
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)
+			);
 			$blockInstance = $blockFactory->get($namespace.$blockName);
 			StringToItemParser::getInstance()->registerBlock($blockName, static fn(string $input) => $blockInstance);
 			CreativeInventory::getInstance()->add($blockInstance->asItem());
