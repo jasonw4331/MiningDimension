@@ -1,5 +1,5 @@
 # MiningDimension
-[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/tZQMhBQ)
+[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/R7kdetE)
 [![Poggit-Ci](https://poggit.pmmp.io/ci.shield/jasonwynn10/MiningDimension/MiningDimension)](https://poggit.pmmp.io/ci/jasonwynn10/MiningDimension/MiningDimension)
 [![Download count](https://poggit.pmmp.io/shield.dl.total/MiningDimension)](https://poggit.pmmp.io/p/MiningDimension)
 
