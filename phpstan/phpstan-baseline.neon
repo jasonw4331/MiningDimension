@@ -1,0 +1,217 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to constant CATEGORY_CONSTRUCTION on an unknown class customiesdevs\\\\customies\\\\item\\\\CreativeInventoryInfo\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Access to constant NONE on an unknown class customiesdevs\\\\customies\\\\item\\\\CreativeInventoryInfo\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method generatePackFromResources\\(\\) on an unknown class libCustomPack\\\\libCustomPack\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method getInstance\\(\\) on an unknown class customiesdevs\\\\customies\\\\block\\\\CustomiesBlockFactory\\.$#"
+			count: 2
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method getInstance\\(\\) on an unknown class customiesdevs\\\\customies\\\\item\\\\CustomiesItemFactory\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method registerResourcePack\\(\\) on an unknown class libCustomPack\\\\libCustomPack\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method unregisterResourcePack\\(\\) on an unknown class libCustomPack\\\\libCustomPack\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot access offset 'Allow Mob Spawning' on mixed\\.$#"
+			count: 2
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot access offset 'Always Day' on mixed\\.$#"
+			count: 3
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot access offset 'Sticky Ore' on mixed\\.$#"
+			count: 2
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot access offset 'Surface Block' on mixed\\.$#"
+			count: 3
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot access offset 'Surface Height' on mixed\\.$#"
+			count: 4
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot call method getDifficulty\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 2
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot call method getPackName\\(\\) on pocketmine\\\\resourcepacks\\\\ResourcePack\\|null\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot call method getProvider\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot call method setTime\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Cannot call method stopTime\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Foreach overwrites \\$block with its value variable\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Instantiated class customiesdevs\\\\customies\\\\item\\\\CreativeInventoryInfo not found\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Method jasonwynn10\\\\MiningDimension\\\\MiningDimension\\:\\:spawnParticles\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Method pocketmine\\\\world\\\\WorldManager\\:\\:generateWorld\\(\\) invoked with 4 parameters, 2\\-3 required\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, mixed given\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Right side of && is always false\\.$#"
+			count: 1
+			path: ../src/MiningDimension.php
+
+		-
+			message: "#^Call to static method getInstance\\(\\) on an unknown class customiesdevs\\\\customies\\\\block\\\\CustomiesBlockFactory\\.$#"
+			count: 1
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Cannot call method getBlock\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 2
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Cannot call method getSafeSpawn\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 2
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Cannot call method orderChunkPopulation\\(\\) on pocketmine\\\\world\\\\World\\|null\\.$#"
+			count: 2
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#1 \\$x of method pocketmine\\\\world\\\\World\\:\\:getBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 12
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#1 \\$x of method pocketmine\\\\world\\\\World\\:\\:setBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 8
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#2 \\$y of method pocketmine\\\\world\\\\World\\:\\:getBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 12
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#2 \\$y of method pocketmine\\\\world\\\\World\\:\\:setBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 8
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#3 \\$z of method pocketmine\\\\world\\\\World\\:\\:getBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 12
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Parameter \\#3 \\$z of method pocketmine\\\\world\\\\World\\:\\:setBlockAt\\(\\) expects int, float\\|int given\\.$#"
+			count: 8
+			path: ../src/block/MiningPortal.php
+
+		-
+			message: "#^Call to static method getInstance\\(\\) on an unknown class twistedasylummc\\\\customies\\\\block\\\\CustomiesBlockFactory\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot access offset 'Sticky Ore' on mixed\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot access offset 'Surface Block' on mixed\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot access offset 'Surface Height' on mixed\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot call method getBiomeId\\(\\) on pocketmine\\\\world\\\\format\\\\Chunk\\|null\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot call method getFullBlock\\(\\) on pocketmine\\\\world\\\\format\\\\Chunk\\|null\\.$#"
+			count: 2
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Cannot call method setFullBlock\\(\\) on pocketmine\\\\world\\\\format\\\\Chunk\\|null\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Match expression does not handle remaining value\\: mixed$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, mixed given\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
+		-
+			message: "#^Property jasonwynn10\\\\MiningDimension\\\\world\\\\MiningWorldGenerator\\:\\:\\$surfaceHeight \\(int\\) does not accept mixed\\.$#"
+			count: 1
+			path: ../src/world/MiningWorldGenerator.php
+
