@@ -9,7 +9,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"MiningDimension\\": "../src"
+			"jasonwynn10\\MiningDimension\\": "../src"
 		}
 	},
 	"config": {
