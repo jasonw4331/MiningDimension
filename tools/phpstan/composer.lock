@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "706d6482baa97c94d8f8e459d9214a74",
+    "content-hash": "e81fdc4d5abc4062af39b27c43023e61",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -120,6 +120,21 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "customiesdevs/customies",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CustomiesDevs/Customies.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "customiesdevs\\customies\\": "src/"
+                }
+            }
         },
         {
             "name": "fgrosse/phpasn1",
