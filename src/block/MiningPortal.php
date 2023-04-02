@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jasonwynn10\MiningDimension\block;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
@@ -15,11 +17,11 @@ use pocketmine\world\Position;
 
 final class MiningPortal extends NetherPortal{
 
-	public function onBreak(Item $item, Player $player = null): bool{
+	public function onBreak(Item $item, Player $player = null) : bool{
 		$position = $this->getPosition();
 		$world = $position->getWorld();
 		$air = VanillaBlocks::AIR();
-		if($this->getSide(Facing::WEST) instanceof self or
+		if($this->getSide(Facing::WEST) instanceof self ||
 			$this->getSide(Facing::EAST) instanceof self
 		){//x direction
 			for($x = $position->x; $world->getBlockAt($x, $position->y, $position->z) instanceof self; $x++){
@@ -68,12 +70,12 @@ final class MiningPortal extends NetherPortal{
 		return true;
 	}
 
-	public function onEntityInside(Entity $entity): bool{
-		if(!$entity instanceof Player or !$entity->isSneaking()) {
+	public function onEntityInside(Entity $entity) : bool{
+		if(!$entity instanceof Player || !$entity->isSneaking()){
 			return true;
 		}
 
-		$worldManager  = $entity->getWorld()->getServer()->getWorldManager();
+		$worldManager = $entity->getWorld()->getServer()->getWorldManager();
 		$miningDimension = $worldManager->getWorldByName('MiningDimension');
 		$overworld = $worldManager->getDefaultWorld();
 
@@ -85,7 +87,7 @@ final class MiningPortal extends NetherPortal{
 		if($world === $miningDimension){
 			// TODO: levelDB portal mapping
 			$overworld->orderChunkPopulation($x >> Chunk::COORD_BIT_SIZE, $z >> Chunk::COORD_BIT_SIZE, null)->onCompletion(
-				function(Chunk $chunk) use($position, $overworld, $entity) {
+				function(Chunk $chunk) use ($position, $overworld, $entity){
 					$position = $overworld->getSafeSpawn($position);
 					$position->x += 0.5;
 					$position->z += 0.5;
@@ -99,7 +101,7 @@ final class MiningPortal extends NetherPortal{
 		}else{
 			// TODO: levelDB portal mapping
 			$miningDimension->orderChunkPopulation($x >> Chunk::COORD_BIT_SIZE, $z >> Chunk::COORD_BIT_SIZE, null)->onCompletion(
-				function(Chunk $chunk) use($position, $miningDimension, $entity) {
+				function(Chunk $chunk) use ($position, $miningDimension, $entity){
 					$position = $miningDimension->getSafeSpawn($position);
 					$position->x += 0.5;
 					$position->z += 0.5;
@@ -114,13 +116,13 @@ final class MiningPortal extends NetherPortal{
 		return true;
 	}
 
-	private function generatePortal(Position $position, ?int $axis = null) : void {
+	private function generatePortal(Position $position, ?int $axis = null) : void{
 		if(!$position->isValid())
 			return;
 		$world = $position->getWorld();
 		$portalBlock = clone $this;
 		$frameBlock = CustomiesBlockFactory::getInstance()->get('miningdimension:mining_portal_frame');
-		if($axis === Axis::Z or ($axis === null and mt_rand(0, 1) === 0)) {
+		if($axis === Axis::Z || ($axis === null && \mt_rand(0, 1) === 0)){
 			$portalBlock->setAxis(Axis::Z);
 			// portal blocks
 			$world->setBlock($position, $portalBlock, false);

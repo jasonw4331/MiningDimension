@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jasonwynn10\MiningDimension\recipe;
 
 use pocketmine\crafting\CraftingGrid;
@@ -11,10 +13,10 @@ final class DurabilityShapelessRecipe extends ShapelessRecipe{
 	public function getResultsFor(CraftingGrid $grid) : array{
 		$results = $this->getResults();
 
-		foreach($grid->getContents() as $item) {
-			if($item instanceof Durable) {
-				foreach($results as $result) {
-					if($item->equals($result, false, true)) {
+		foreach($grid->getContents() as $item){
+			if($item instanceof Durable){
+				foreach($results as $result){
+					if($item->equals($result, false, true)){
 						$result->setCount($item->getCount() - $result->getCount());
 					}
 				}
@@ -37,9 +39,9 @@ final class DurabilityShapelessRecipe extends ShapelessRecipe{
 		$input = $grid->getContents();
 
 		foreach($this->getIngredientList() as $needItem){
-			if($needItem instanceof Durable) {
+			if($needItem instanceof Durable){
 				foreach($input as $j => $haveItem){
-					if($haveItem->equals($needItem, false, $needItem->hasNamedTag()) && $haveItem->getCount() - $needItem->getCount() >= 0) {
+					if($haveItem->equals($needItem, false, $needItem->hasNamedTag()) && $haveItem->getCount() - $needItem->getCount() >= 0){
 						unset($input[$j]);
 					}
 					continue 2;
@@ -56,6 +58,6 @@ final class DurabilityShapelessRecipe extends ShapelessRecipe{
 			return false; //failed to match the needed item to a given item
 		}
 
-		return count($input) === 0; //crafting grid should be empty apart from the given ingredient stacks
+		return \count($input) === 0; //crafting grid should be empty apart from the given ingredient stacks
 	}
 }

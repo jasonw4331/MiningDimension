@@ -6,6 +6,6 @@ api: 4.0.0
 author: jasonwynn10
 description: "A plugin which creates a world specifically for mining"
 depend:
- - Customies
+  - Customies
 softdepend:
- - NativeDimensions
+  - NativeDimensions

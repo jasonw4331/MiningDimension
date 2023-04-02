@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jasonwynn10\MiningDimension\world;
 
 use pocketmine\block\BlockFactory;
@@ -27,11 +29,11 @@ final class MiningWorldGenerator extends Flat{
 		$this->surfaceHeight = $parsedData['Surface Height'];
 
 		$flatPreset = '2;bedrock,';
-		$flatPreset .= match($parsedData['Surface Block']) {
-			'Grass' => ($this->surfaceHeight - 6).'*stone,4*dirt,grass;',
-			'Stone'	=> ($this->surfaceHeight - 1).'*stone;',
+		$flatPreset .= match ($parsedData['Surface Block']) {
+			'Grass' => ($this->surfaceHeight - 6) . '*stone,4*dirt,grass;',
+			'Stone' => ($this->surfaceHeight - 1) . '*stone;',
 		};
-		$flatPreset .= BiomeIds::JUNGLE_HILLS.';decoration,lake,lava_lake'; // decoration is ore gen; PM doesn't have lakes yet
+		$flatPreset .= BiomeIds::JUNGLE_HILLS . ';decoration,lake,lava_lake'; // decoration is ore gen; PM doesn't have lakes yet
 
 		parent::__construct($seed, $flatPreset);
 		$this->random->setSeed($this->seed);
@@ -58,7 +60,7 @@ final class MiningWorldGenerator extends Flat{
 			for($z = 0; $z < Chunk::EDGE_LENGTH; ++$z){
 				$biome = $biomeRegistry->getBiome($chunk->getBiomeId($x, $z));
 				$cover = $biome->getGroundCover();
-				if(count($cover) > 0){
+				if(\count($cover) > 0){
 					$diffY = 0;
 					if(!$cover[0]->isSolid()){
 						$diffY = 1;
@@ -70,8 +72,8 @@ final class MiningWorldGenerator extends Flat{
 							break;
 						}
 					}
-					$startY = min($this->surfaceHeight, $startY + $diffY);
-					$endY = $startY - count($cover);
+					$startY = \min($this->surfaceHeight, $startY + $diffY);
+					$endY = $startY - \count($cover);
 					for($y = $startY; $y > $endY && $y >= 0; --$y){
 						$b = $cover[$startY - $y];
 						$id = $factory->fromFullBlock($chunk->getFullBlock($x, $y, $z));

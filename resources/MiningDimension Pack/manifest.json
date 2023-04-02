@@ -1,37 +1,37 @@
 {
-    "format_version": 2,
-    "header": {
-        "description": "MiningDimension Plugin Resources",
-        "name": "MiningDimension",
-        "uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
-        "version": [
-            1,
-            0,
-            1
-        ],
-        "min_engine_version": [
-            1,
-            18,
-            0
-        ]
-    },
-    "modules": [
-        {
-            "description": "MiningDimension Plugin Resources",
-            "type": "resources",
-            "uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
-            "version": [
-                1,
-                0,
-                0
-            ]
-        }
-    ],
-    "metadata": {
-        "authors": [
-            "jasonwynn10"
-        ],
-        "license": "lgpl-3.0-or-later",
-        "url": "https://github.com/jasonwynn10/MiningDimension"
-    }
+	"format_version": 2,
+	"header": {
+		"description": "MiningDimension Plugin Resources",
+		"name": "MiningDimension",
+		"uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
+		"version": [
+			1,
+			0,
+			1
+		],
+		"min_engine_version": [
+			1,
+			18,
+			0
+		]
+	},
+	"modules": [
+		{
+			"description": "MiningDimension Plugin Resources",
+			"type": "resources",
+			"uuid": "ab1a13c2-6aeb-4dc1-b0d5-18ebedfbabe7",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"metadata": {
+		"authors": [
+			"jasonwynn10"
+		],
+		"license": "lgpl-3.0-or-later",
+		"url": "https://github.com/jasonwynn10/MiningDimension"
+	}
 }

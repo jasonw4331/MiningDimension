@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jasonwynn10\MiningDimension\item;
 
 use customiesdevs\customies\item\ItemComponents;

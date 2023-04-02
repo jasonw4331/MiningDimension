@@ -1,12 +1,12 @@
 {
-    "resource_pack_name": "MiningDimension",
-    "texture_name": "atlas.items",
-    "texture_data": {
-        "mining_multitool": {
-            "textures": "textures/items/mining_multitool"
-        },
-        "dimension_changer": {
-            "textures": "textures/items/dimension_changer"
-        }
-    }
+	"resource_pack_name": "MiningDimension",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"mining_multitool": {
+			"textures": "textures/items/mining_multitool"
+		},
+		"dimension_changer": {
+			"textures": "textures/items/dimension_changer"
+		}
+	}
 }

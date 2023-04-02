@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace jasonwynn10\MiningDimension;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
@@ -44,24 +46,24 @@ use pocketmine\world\World;
 use pocketmine\world\WorldCreationOptions;
 use Webmozart\PathUtil\Path;
 
-final class MiningDimension extends PluginBase {
+final class MiningDimension extends PluginBase{
 	private static ?ResourcePack $pack = null;
-	/** @var array<int, array<Position|int>> $savedPositions */
+	/** @var Position[] $savedPositions */
 	private array $savedPositions = [];
 
-	public function onEnable() : void {
+	public function onEnable() : void{
 		$server = $this->getServer();
 
 		// register custom items
 		$itemFactory = CustomiesItemFactory::getInstance();
-		$namespace = mb_strtolower($this->getName()).':';
+		$namespace = \mb_strtolower($this->getName()) . ':';
 
 		foreach([
 			'mining_multitool' => MiningMultiTool::class,
 			'dimension_changer' => DimensionChanger::class
-		] as $itemName => $class) {
-			$itemFactory->registerItem($class, $namespace.$itemName, ucwords(str_replace('_', ' ', $itemName)));
-			$itemInstance = $itemFactory->get($namespace.$itemName);
+		] as $itemName => $class){
+			$itemFactory->registerItem($class, $namespace . $itemName, \ucwords(\str_replace('_', ' ', $itemName)));
+			$itemInstance = $itemFactory->get($namespace . $itemName);
 			StringToItemParser::getInstance()->register($itemName, static fn(string $input) => $itemInstance);
 		}
 
@@ -74,18 +76,18 @@ final class MiningDimension extends PluginBase {
 			'mining_portal_frame' => PortalFrameBlock::class,
 			'mining_portal' => MiningPortal::class,
 		];
-		if($this->getConfig()->get('Sticky Ore', true) === true) {
+		if($this->getConfig()->get('Sticky Ore', true) === true){
 			$toBeRegistered += ['sticky_ore' => StickyOre::class];
 		}
 
-		foreach($toBeRegistered as $blockName => $class) {
+		foreach($toBeRegistered as $blockName => $class){
 			$blockFactory->registerBlock(
-				static fn($id) => new $class(new BlockIdentifier($id, 0), ucwords(str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible()),
-				$namespace.$blockName,
+				static fn($id) => new $class(new BlockIdentifier($id, 0), \ucwords(\str_replace('_', ' ', $blockName)), BlockBreakInfo::indestructible()),
+				$namespace . $blockName,
 				null,
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)
 			);
-			$blockInstance = $blockFactory->get($namespace.$blockName);
+			$blockInstance = $blockFactory->get($namespace . $blockName);
 			StringToItemParser::getInstance()->registerBlock($blockName, static fn(string $input) => $blockInstance);
 		}
 
@@ -107,18 +109,18 @@ final class MiningDimension extends PluginBase {
 				'D' => VanillaItems::STICK()
 			],
 			[
-				$itemFactory->get($namespace.'mining_multitool')
+				$itemFactory->get($namespace . 'mining_multitool')
 			]
 		));
-		for($i = 1; $i < 9; ++$i) { // scale damage up to tool max durability
+		for($i = 1; $i < 9; ++$i){ // scale damage up to tool max durability
 			$craftManager->registerShapelessRecipe(new DurabilityShapelessRecipe(
 				[
 					VanillaBlocks::STONE_BRICKS()->asItem()->setCount($i),
-					$itemFactory->get($namespace.'mining_multitool') // TODO: possibly reregister for other damage values
+					$itemFactory->get($namespace . 'mining_multitool') // TODO: possibly reregister for other damage values
 				],
 				[
-					$itemFactory->get($namespace.'mining_multitool')->setDamage($i), // set 1 to subtract from given item
-					$blockFactory->get($namespace.'mining_portal_frame')->asItem()->setCount($i)
+					$itemFactory->get($namespace . 'mining_multitool')->setDamage($i), // set 1 to subtract from given item
+					$blockFactory->get($namespace . 'mining_portal_frame')->asItem()->setCount($i)
 				]
 			));
 		}
@@ -132,49 +134,35 @@ final class MiningDimension extends PluginBase {
 				'A' => VanillaItems::DIAMOND(),
 				'B' => ItemFactory::getInstance()->get(ItemIds::ENDER_EYE),
 				'C' => VanillaItems::ENDER_PEARL(),
-				'D' => $itemFactory->get($namespace.'mining_multitool')
+				'D' => $itemFactory->get($namespace . 'mining_multitool')
 			],
 			[
-				$itemFactory->get($namespace.'dimension_changer')
+				$itemFactory->get($namespace . 'dimension_changer')
 			]
 		));
 
 		$this->getLogger()->debug('Registered custom recipes');
 
 		// Compile resource pack
-		$zip = new \ZipArchive();
-		$zip->open(Path::join($this->getDataFolder(), $this->getName().'.mcpack'), \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-		foreach($this->getResources() as $resource){
-			if($resource->isFile() and str_contains($resource->getPathname(), $this->getName().' Pack')){
-				$relativePath = Path::normalize(preg_replace("/.*[\/\\\\]{$this->getName()}\hPack[\/\\\\].*/U", '', $resource->getPathname()));
-				$this->saveResource(Path::join($this->getName().' Pack', $relativePath), false);
-				$zip->addFile(Path::join($this->getDataFolder(), $this->getName().' Pack', $relativePath), $relativePath);
-			}
-		}
-		$zip->close();
-		Filesystem::recursiveUnlink(Path::join($this->getDataFolder().$this->getName().' Pack'));
-		$this->getLogger()->debug('Resource pack compiled');
-
-		// Register resource pack
-		$this->registerResourcePack(self::$pack = new ZippedResourcePack(Path::join($this->getDataFolder(), $this->getName().'.mcpack')));
-		$this->getLogger()->debug('Resource pack registered');
+		libCustomPack::registerResourcePack(self::$pack = libCustomPack::generatePackFromResources($this));
+		$this->getLogger()->debug('Resource pack installed');
 
 		// Register world generator
 		GeneratorManager::getInstance()->addGenerator(
 			MiningWorldGenerator::class,
 			'MiningWorldGenerator',
 			\Closure::fromCallable(
-				function(string $generatorOptions) {
+				function(string $generatorOptions){
 					$parsedOptions = \json_decode($generatorOptions, true, flags: \JSON_THROW_ON_ERROR);
-					if(!isset($parsedOptions['Sticky Ore']) or !is_bool($parsedOptions['Sticky Ore'])) {
+					if(!isset($parsedOptions['Sticky Ore']) || !\is_bool($parsedOptions['Sticky Ore'])){
 						return new InvalidGeneratorOptionsException('Invalid sticky ore setting. Value must be either "true" or "false"');
-					}elseif(!isset($parsedOptions['Surface Height']) or !is_int($parsedOptions['Surface Height']) or $parsedOptions['Surface Height'] < 16 or $parsedOptions['Surface Height'] > World::Y_MAX) {
-						return new InvalidGeneratorOptionsException('Invalid world height. Value must be an integer from 16 to '.World::Y_MAX);
-					}elseif(!isset($parsedOptions['Surface Block']) or !is_string($parsedOptions['Surface Block']) or !in_array(mb_strtolower($parsedOptions['Surface Block']), ['grass', 'stone'])) {
+					}elseif(!isset($parsedOptions['Surface Height']) || !\is_int($parsedOptions['Surface Height']) || $parsedOptions['Surface Height'] < 16 || $parsedOptions['Surface Height'] > World::Y_MAX){
+						return new InvalidGeneratorOptionsException('Invalid world height. Value must be an integer from 16 to ' . World::Y_MAX);
+					}elseif(!isset($parsedOptions['Surface Block']) || !\is_string($parsedOptions['Surface Block']) || !\in_array(\mb_strtolower($parsedOptions['Surface Block']), ['grass', 'stone'], true)){
 						return new InvalidGeneratorOptionsException('Invalid surface block Type. Value must be either "Grass" or "Stone"');
-					}elseif(!isset($parsedOptions['Always Day']) or !is_bool($parsedOptions['Always Day'])) {
+					}elseif(!isset($parsedOptions['Always Day']) || !\is_bool($parsedOptions['Always Day'])){
 						return new InvalidGeneratorOptionsException('Invalid always day setting. Value must be either "true" or "false"');
-					}elseif(!isset($parsedOptions['Allow Mob Spawning']) or !is_bool($parsedOptions['Allow Mob Spawning'])) {
+					}elseif(!isset($parsedOptions['Allow Mob Spawning']) || !\is_bool($parsedOptions['Allow Mob Spawning'])){
 						return new InvalidGeneratorOptionsException('Invalid mob spawn setting. Value must be either "true" or "false"');
 					}
 					return null;
@@ -186,14 +174,14 @@ final class MiningDimension extends PluginBase {
 
 		// Load or generate the SpectreZone dimension 1 tick after blocks are registered on the generation thread
 		$worldManager = $server->getWorldManager();
-		if(!$worldManager->loadWorld('MiningDimension')) {
+		if(!$worldManager->loadWorld('MiningDimension')){
 			$this->getLogger()->debug('Mining dimension was not loaded. Generating now...');
 
 			$difficulty = $this->getConfig()->get('Allow Mob Spawning', true) ?
 				(
-					$worldManager->getDefaultWorld()->getDifficulty() > World::DIFFICULTY_PEACEFUL ?
-						$worldManager->getDefaultWorld()->getDifficulty() :
-						World::DIFFICULTY_EASY
+				$worldManager->getDefaultWorld()->getDifficulty() > World::DIFFICULTY_PEACEFUL ?
+					$worldManager->getDefaultWorld()->getDifficulty() :
+					World::DIFFICULTY_EASY
 				) :
 				World::DIFFICULTY_PEACEFUL;
 
@@ -212,7 +200,7 @@ final class MiningDimension extends PluginBase {
 
 		$world = $worldManager->getWorldByName('MiningDimension');
 		$decodedOptions = \json_decode($world->getProvider()->getWorldData()->getGeneratorOptions(), true, flags: \JSON_THROW_ON_ERROR);
-		if($decodedOptions['Always Day'] === true) {
+		if($decodedOptions['Always Day'] === true){
 			$world->setTime(World::TIME_NOON);
 			$world->stopTime();
 		}
@@ -223,9 +211,9 @@ final class MiningDimension extends PluginBase {
 		$pluginManager->registerEvent(
 			PlayerQuitEvent::class,
 			\Closure::fromCallable(
-				function(PlayerQuitEvent $event) {
+				function(PlayerQuitEvent $event){
 					$player = $event->getPlayer();
-					if(isset($this->savedPositions[$player->getUniqueId()->toString()])) { // if set, the player is in the SpectreZone world
+					if(isset($this->savedPositions[$player->getUniqueId()->toString()])){ // if set, the player is in the SpectreZone world
 						$position = $this->savedPositions[$player->getUniqueId()->toString()];
 						unset($this->savedPositions[$player->getUniqueId()->toString()]);
 						$player->teleport($position); // teleport the player back to their last position
@@ -239,13 +227,13 @@ final class MiningDimension extends PluginBase {
 		$pluginManager->registerEvent(
 			PlayerItemUseEvent::class,
 			\Closure::fromCallable(
-				function(PlayerItemUseEvent $event) {
+				function(PlayerItemUseEvent $event){
 					$player = $event->getPlayer();
-					if($event->getItem() instanceof DimensionChanger and !$player->isUsingItem()) {
+					if($event->getItem() instanceof DimensionChanger && !$player->isUsingItem()){
 						$this->getScheduler()->scheduleRepeatingTask(new ClosureTask(
 							\Closure::fromCallable(
-								function() use ($player) {
-									if($player->getInventory()->getItemInHand() instanceof DimensionChanger and $player->isUsingItem()) {
+								function() use ($player){
+									if($player->getInventory()->getItemInHand() instanceof DimensionChanger && $player->isUsingItem()){
 										$this->spawnParticles($player->getPosition());
 									}else{
 										throw new CancelTaskException();
@@ -263,7 +251,7 @@ final class MiningDimension extends PluginBase {
 		$pluginManager->registerEvent(
 			BlockUpdateEvent::class,
 			\Closure::fromCallable(
-				function(BlockUpdateEvent $event) {
+				function(BlockUpdateEvent $event){
 					// light portal from fire position
 					$block = $event->getBlock();
 					if(!$block instanceof Fire)
@@ -275,13 +263,13 @@ final class MiningDimension extends PluginBase {
 							continue;
 						}
 						$minWidth = 2;
-						if($this->testDirectionForFrame(Facing::NORTH, $block->getPosition(), $widthA) and $this->testDirectionForFrame(Facing::SOUTH, $block->getPosition(), $widthB)){
+						if($this->testDirectionForFrame(Facing::NORTH, $block->getPosition(), $widthA) && $this->testDirectionForFrame(Facing::SOUTH, $block->getPosition(), $widthB)){
 							$totalWidth = $widthA + $widthB - 1;
 							if($totalWidth < $minWidth){
 								return; // portal cannot be made
 							}
 							$direction = Facing::NORTH;
-						}elseif($this->testDirectionForFrame(Facing::EAST, $block->getPosition(), $widthA) and $this->testDirectionForFrame(Facing::WEST, $block->getPosition(), $widthB)){
+						}elseif($this->testDirectionForFrame(Facing::EAST, $block->getPosition(), $widthA) && $this->testDirectionForFrame(Facing::WEST, $block->getPosition(), $widthB)){
 							$totalWidth = $widthA + $widthB - 1;
 							if($totalWidth < $minWidth){
 								return;
@@ -292,7 +280,7 @@ final class MiningDimension extends PluginBase {
 						}
 
 						$minHeight = 3;
-						if($this->testDirectionForFrame(Facing::UP, $block->getPosition(), $heightA) and $this->testDirectionForFrame(Facing::DOWN, $block->getPosition(), $heightB)){
+						if($this->testDirectionForFrame(Facing::UP, $block->getPosition(), $heightA) && $this->testDirectionForFrame(Facing::DOWN, $block->getPosition(), $heightB)){
 							$totalHeight = $heightA + $heightB - 1;
 							if($totalHeight < $minHeight){
 								return; // portal cannot be made
@@ -327,53 +315,11 @@ final class MiningDimension extends PluginBase {
 	}
 
 	public function onDisable() : void{
-		$manager = $this->getServer()->getResourcePackManager();
-		$pack = self::$pack;
+		libCustomPack::unregisterResourcePack(self::$pack);
+		$this->getLogger()->debug('Resource pack uninstalled');
 
-		$reflection = new \ReflectionClass($manager);
-
-		$property = $reflection->getProperty("resourcePacks");
-		$property->setAccessible(true);
-		$currentResourcePacks = $property->getValue($manager);
-		$key = array_search($pack, $currentResourcePacks);
-		if($key !== false){
-			unset($currentResourcePacks[$key]);
-			$property->setValue($manager, $currentResourcePacks);
-		}
-
-		$property = $reflection->getProperty("uuidList");
-		$property->setAccessible(true);
-		$currentUUIDPacks = $property->getValue($manager);
-		if(isset($currentResourcePacks[mb_strtolower($pack->getPackId())])) {
-			unset($currentUUIDPacks[mb_strtolower($pack->getPackId())]);
-			$property->setValue($manager, $currentUUIDPacks);
-		}
-		$this->getLogger()->debug('Resource pack unregistered');
-
-		unlink(Path::join($this->getDataFolder(), $this->getName().'.mcpack'));
+		\unlink(Path::join($this->getDataFolder(), self::$pack->getPackName() . '.mcpack'));
 		$this->getLogger()->debug('Resource pack file deleted');
-	}
-
-	private function registerResourcePack(ResourcePack $pack){
-		$manager = $this->getServer()->getResourcePackManager();
-
-		$reflection = new \ReflectionClass($manager);
-
-		$property = $reflection->getProperty("resourcePacks");
-		$property->setAccessible(true);
-		$currentResourcePacks = $property->getValue($manager);
-		$currentResourcePacks[] = $pack;
-		$property->setValue($manager, $currentResourcePacks);
-
-		$property = $reflection->getProperty("uuidList");
-		$property->setAccessible(true);
-		$currentUUIDPacks = $property->getValue($manager);
-		$currentUUIDPacks[mb_strtolower($pack->getPackId())] = $pack;
-		$property->setValue($manager, $currentUUIDPacks);
-
-		$property = $reflection->getProperty("serverForceResources");
-		$property->setAccessible(true);
-		$property->setValue($manager, true);
 	}
 
 	private function testDirectionForFrame(int $direction, Position $start, ?int &$distance = null) : bool{
@@ -389,12 +335,12 @@ final class MiningDimension extends PluginBase {
 		return false;
 	}
 
-	public function savePlayerInfo(Player $player) : void {
+	public function savePlayerInfo(Player $player) : void{
 		$this->savedPositions[$player->getUniqueId()->toString()] = $player->getPosition();
 	}
 
-	public function getSavedInfo(Player $player) : ?Position {
-		if(isset($this->savedPositions[$player->getUniqueId()->toString()])) {
+	public function getSavedInfo(Player $player) : ?Position{
+		if(isset($this->savedPositions[$player->getUniqueId()->toString()])){
 			$position = $this->savedPositions[$player->getUniqueId()->toString()];
 			unset($this->savedPositions[$player->getUniqueId()->toString()]);
 			return $position;
@@ -404,8 +350,8 @@ final class MiningDimension extends PluginBase {
 
 	private function spawnParticles(Position $position){
 
-		$xOffset = lcg_value() * 1.8 - 0.9;
-		$zOffset = lcg_value() * 1.8 - 0.9;
+		$xOffset = \lcg_value() * 1.8 - 0.9;
+		$zOffset = \lcg_value() * 1.8 - 0.9;
 
 		$position->getWorld()->addParticle($position->add($xOffset, 1.8, $zOffset), new DustParticle(new Color(122, 197, 205)));
 	}
