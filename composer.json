@@ -11,7 +11,7 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"jasonw4331\\SpectreZone\\": "/src"
+			"jasonw4331\\MiningDimension\\": "/src"
 		}
 	},
 	"repositories": [
