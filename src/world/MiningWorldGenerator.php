@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace jasonwynn10\MiningDimension\world;
+namespace jasonw4331\MiningDimension\world;
 
 use pocketmine\block\BlockFactory;
 use pocketmine\block\BlockLegacyIds;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace jasonwynn10\MiningDimension\recipe;
+namespace jasonw4331\MiningDimension\recipe;
 
 use pocketmine\crafting\CraftingGrid;
 use pocketmine\crafting\ShapelessRecipe;

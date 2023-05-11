@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace jasonwynn10\MiningDimension\block;
+namespace jasonw4331\MiningDimension\block;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
 use pocketmine\block\NetherPortal;

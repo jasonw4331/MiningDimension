@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace jasonwynn10\MiningDimension\item;
+namespace jasonw4331\MiningDimension\item;
 
 use customiesdevs\customies\item\ItemComponents;
 use customiesdevs\customies\item\ItemComponentsTrait;
-use jasonwynn10\MiningDimension\MiningDimension;
+use jasonw4331\MiningDimension\MiningDimension;
 use pocketmine\item\Item;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\ItemUseResult;

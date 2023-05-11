@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace jasonwynn10\MiningDimension;
+namespace jasonw4331\MiningDimension;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
 use customiesdevs\customies\item\CreativeInventoryInfo;
 use customiesdevs\customies\item\CustomiesItemFactory;
-use jasonwynn10\MiningDimension\block\MiningPortal;
-use jasonwynn10\MiningDimension\block\PortalFrameBlock;
-use jasonwynn10\MiningDimension\block\StickyOre;
-use jasonwynn10\MiningDimension\item\DimensionChanger;
-use jasonwynn10\MiningDimension\item\MiningMultiTool;
-use jasonwynn10\MiningDimension\recipe\DurabilityShapelessRecipe;
-use jasonwynn10\MiningDimension\world\MiningWorldGenerator;
+use jasonw4331\MiningDimension\block\MiningPortal;
+use jasonw4331\MiningDimension\block\PortalFrameBlock;
+use jasonw4331\MiningDimension\block\StickyOre;
+use jasonw4331\MiningDimension\item\DimensionChanger;
+use jasonw4331\MiningDimension\item\MiningMultiTool;
+use jasonw4331\MiningDimension\recipe\DurabilityShapelessRecipe;
+use jasonw4331\MiningDimension\world\MiningWorldGenerator;
 use libCustomPack\libCustomPack;
 use pocketmine\block\Air;
 use pocketmine\block\BlockBreakInfo;
