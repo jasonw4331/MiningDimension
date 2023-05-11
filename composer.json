@@ -1,6 +1,6 @@
 {
 	"name": "jasonw4331/miningdimension",
-	"description": "A plugin which loads dimensions within worlds and provides an API for managing dimensions across worlds",
+	"description": "A pocketmine plugin which creates a flat world variant with ores, caves, and other natural generation",
 	"type": "library",
 	"license": "lgpl-3.0-or-later",
 	"authors": [{
