@@ -1,4 +1,4 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/jasonwynn10/MiningDimension
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/jasonw4331/MiningDimension
 build-by-default: true
 projects:
   MiningDimension:
