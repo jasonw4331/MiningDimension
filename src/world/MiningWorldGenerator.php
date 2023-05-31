@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace jasonw4331\MiningDimension\world;
 
-use pocketmine\block\BlockFactory;
-use pocketmine\block\BlockLegacyIds;
+use customiesdevs\customies\block\CustomiesBlockFactory;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\Liquid;
+use pocketmine\block\RuntimeBlockStateRegistry;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\data\bedrock\BiomeIds;
 use pocketmine\world\biome\BiomeRegistry;
@@ -17,14 +18,17 @@ use pocketmine\world\generator\Flat;
 use pocketmine\world\generator\object\OreType;
 use pocketmine\world\generator\populator\Ore;
 use pocketmine\world\generator\populator\Tree;
-use twistedasylummc\customies\block\CustomiesBlockFactory;
+use function count;
+use function json_decode;
+use function min;
+use const JSON_THROW_ON_ERROR;
 
 final class MiningWorldGenerator extends Flat{
 	private PlainBiome $biome;
 	private int $surfaceHeight;
 
 	public function __construct(int $seed, string $preset){
-		$parsedData = \json_decode($preset, true, flags: \JSON_THROW_ON_ERROR);
+		$parsedData = json_decode($preset, true, flags: JSON_THROW_ON_ERROR);
 
 		$this->surfaceHeight = $parsedData['Surface Height'];
 
@@ -53,14 +57,15 @@ final class MiningWorldGenerator extends Flat{
 
 	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ) : void{
 		parent::generateChunk($world, $chunkX, $chunkZ);
+		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		$factory = BlockFactory::getInstance();
+		$factory = RuntimeBlockStateRegistry::getInstance();
 		$biomeRegistry = BiomeRegistry::getInstance();
 		for($x = 0; $x < Chunk::EDGE_LENGTH; ++$x){
 			for($z = 0; $z < Chunk::EDGE_LENGTH; ++$z){
-				$biome = $biomeRegistry->getBiome($chunk->getBiomeId($x, $z));
+				$biome = $biomeRegistry->getBiome($chunk->getBiomeId($x, $this->surfaceHeight, $z));
 				$cover = $biome->getGroundCover();
-				if(\count($cover) > 0){
+				if(count($cover) > 0){
 					$diffY = 0;
 					if(!$cover[0]->isSolid()){
 						$diffY = 1;
@@ -68,23 +73,23 @@ final class MiningWorldGenerator extends Flat{
 
 					$startY = $this->surfaceHeight;
 					for(; $startY > 0; --$startY){
-						if(!$factory->fromFullBlock($chunk->getFullBlock($x, $startY, $z))->isTransparent()){
+						if(!$factory->fromStateId($chunk->getBlockStateId($x, $startY, $z))->isTransparent()){
 							break;
 						}
 					}
-					$startY = \min($this->surfaceHeight, $startY + $diffY);
-					$endY = $startY - \count($cover);
+					$startY = min($this->surfaceHeight, $startY + $diffY);
+					$endY = $startY - count($cover);
 					for($y = $startY; $y > $endY && $y >= 0; --$y){
 						$b = $cover[$startY - $y];
-						$id = $factory->fromFullBlock($chunk->getFullBlock($x, $y, $z));
-						if($id->getId() === BlockLegacyIds::AIR && $b->isSolid()){
+						$id = $factory->fromStateId($chunk->getBlockStateId($x, $y, $z));
+						if($id->getTypeId() === BlockTypeIds::AIR && $b->isSolid()){
 							break;
 						}
 						if($b->canBeFlowedInto() && $id instanceof Liquid){
 							continue;
 						}
 
-						$chunk->setFullBlock($x, $y, $z, $b->getFullId());
+						$chunk->setBlockStateId($x, $y, $z, $b->getStateId());
 					}
 				}
 			}
@@ -92,8 +97,8 @@ final class MiningWorldGenerator extends Flat{
 	}
 
 	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ) : void{
-		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 		parent::populateChunk($world, $chunkX, $chunkZ);
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 
 		$this->biome->populateChunk($world, $chunkX, $chunkZ, $this->random);
 	}

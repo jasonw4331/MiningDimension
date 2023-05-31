@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace jasonw4331\MiningDimension\block;
 
 use customiesdevs\customies\block\CustomiesBlockFactory;
+use GlobalLogger;
 use pocketmine\block\NetherPortal;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\Entity;
@@ -12,12 +13,14 @@ use pocketmine\item\Item;
 use pocketmine\math\Axis;
 use pocketmine\math\Facing;
 use pocketmine\player\Player;
+use pocketmine\utils\AssumptionFailedError;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\Position;
+use function mt_rand;
 
 final class MiningPortal extends NetherPortal{
 
-	public function onBreak(Item $item, Player $player = null) : bool{
+	public function onBreak(Item $item, Player $player = null, array &$returnedItems = []) : bool{
 		$position = $this->getPosition();
 		$world = $position->getWorld();
 		$air = VanillaBlocks::AIR();
@@ -77,7 +80,13 @@ final class MiningPortal extends NetherPortal{
 
 		$worldManager = $entity->getWorld()->getServer()->getWorldManager();
 		$miningDimension = $worldManager->getWorldByName('MiningDimension');
+		if($miningDimension === null){
+			throw new AssumptionFailedError("MiningDimension world not found");
+		}
 		$overworld = $worldManager->getDefaultWorld();
+		if($overworld === null){
+			throw new AssumptionFailedError("Overworld not found");
+		}
 
 		$position = $this->getPosition();
 		$world = $position->getWorld();
@@ -93,10 +102,10 @@ final class MiningPortal extends NetherPortal{
 					$position->z += 0.5;
 					if(!$overworld->getBlock($position) instanceof self)
 						$this->generatePortal($position, $this->getAxis());
-					\GlobalLogger::get()->debug("Teleporting to the overworld");
+					GlobalLogger::get()->debug("Teleporting to the overworld");
 					$entity->teleport($position);
 				},
-				static fn() => \GlobalLogger::get()->debug("Failed to generate overworld chunks")
+				static fn() => GlobalLogger::get()->debug("Failed to generate overworld chunks")
 			);
 		}else{
 			// TODO: levelDB portal mapping
@@ -107,10 +116,10 @@ final class MiningPortal extends NetherPortal{
 					$position->z += 0.5;
 					if(!$miningDimension->getBlock($position) instanceof self)
 						$this->generatePortal($position, $this->getAxis());
-					\GlobalLogger::get()->debug("Teleporting to the Mining Dimension");
+					GlobalLogger::get()->debug("Teleporting to the Mining Dimension");
 					$entity->teleport($position);
 				},
-				static fn() => \GlobalLogger::get()->debug("Failed to generate Mining Dimension chunks")
+				static fn() => GlobalLogger::get()->debug("Failed to generate Mining Dimension chunks")
 			);
 		}
 		return true;
@@ -122,7 +131,7 @@ final class MiningPortal extends NetherPortal{
 		$world = $position->getWorld();
 		$portalBlock = clone $this;
 		$frameBlock = CustomiesBlockFactory::getInstance()->get('miningdimension:mining_portal_frame');
-		if($axis === Axis::Z || ($axis === null && \mt_rand(0, 1) === 0)){
+		if($axis === Axis::Z || ($axis === null && mt_rand(0, 1) === 0)){
 			$portalBlock->setAxis(Axis::Z);
 			// portal blocks
 			$world->setBlock($position, $portalBlock, false);

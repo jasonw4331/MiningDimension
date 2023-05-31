@@ -7,12 +7,13 @@ namespace jasonw4331\MiningDimension\block;
 use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\item\VanillaItems;
+use function mt_rand;
 
 final class StickyOre extends Block{
 
 	public function getDropsForCompatibleTool(Item $item) : array{
 		return [
-			VanillaItems::SLIMEBALL()->setCount(\mt_rand(1, 3))
+			VanillaItems::SLIMEBALL()->setCount(mt_rand(1, 3))
 		];
 	}
 
@@ -21,7 +22,7 @@ final class StickyOre extends Block{
 	}
 
 	protected function getXpDropAmount() : int{
-		return \mt_rand(0, 2);
+		return mt_rand(0, 2);
 	}
 
 }

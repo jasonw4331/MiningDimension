@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace jasonw4331\MiningDimension\item;
 
+use customiesdevs\customies\item\component\DurabilityComponent;
+use customiesdevs\customies\item\component\ThrowableComponent;
+use customiesdevs\customies\item\CreativeInventoryInfo;
 use customiesdevs\customies\item\ItemComponents;
 use customiesdevs\customies\item\ItemComponentsTrait;
 use pocketmine\block\Air;
@@ -13,7 +16,6 @@ use pocketmine\item\ItemIdentifier;
 use pocketmine\item\ItemUseResult;
 use pocketmine\item\Tool;
 use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
 use pocketmine\world\sound\FlintSteelSound;
 
@@ -22,24 +24,12 @@ final class MiningMultiTool extends Tool implements ItemComponents{
 
 	public function __construct(ItemIdentifier $identifier, string $name = 'Mining Multitool'){
 		parent::__construct($identifier, $name);
-		$this->initComponent('mining_multitool', 1);
-		$this->addProperty('creative_group', 'Items');
-		$this->addProperty('creative_category', 4);
-		$this->addComponent('minecraft:durability', CompoundTag::create()
-			->setInt('damage_chance', 100)
-			->setInt('max_durability', 19)
-		);
-		$this->addComponent('minecraft:throwable', CompoundTag::create()
-			->setByte('do_swing_animation', 0)
-			->setFloat('launch_power_scale', 1.0)
-			->setFloat('max_draw_duration', 15.0)
-			->setFloat('max_launch_power', 30.0)
-			->setFloat('min_draw_duration', 5.0)
-			->setByte('scale_power_by_draw_duration', 1)
-		);
+		$this->initComponent('mining_multitool', new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE));
+		$this->addComponent(new DurabilityComponent($this->getMaxDurability()));
+		$this->addComponent(new ThrowableComponent(true));
 	}
 
-	public function onInteractBlock(Player $player, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector) : ItemUseResult{
+	public function onInteractBlock(Player $player, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector, array &$returnedItems) : ItemUseResult{
 		if($blockReplace instanceof Air){
 			$world = $player->getWorld();
 			$world->setBlock($blockReplace->getPosition(), VanillaBlocks::FIRE());
