@@ -4,7 +4,6 @@ projects:
   MiningDimension:
     path: ""
     icon: "icon.png"
-    lint: false
     excludeDirs:
       - tests
       - .github
