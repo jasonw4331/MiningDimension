@@ -32,11 +32,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/MiningDimension.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method customiesdevs\\\\customies\\\\block\\\\CustomiesBlockFactory\\:\\:registerBlock\\(\\) invoked with 6 parameters, 2\\-4 required\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/MiningDimension.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method pocketmine\\\\world\\\\WorldManager\\:\\:generateWorld\\(\\) invoked with 4 parameters, 2\\-3 required\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/src/MiningDimension.php',
