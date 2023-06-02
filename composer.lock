@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84edbcf0ed6645dd4f6cbc0537929a3b",
+    "content-hash": "c17444f66ed2e9186ecd1241d860a3d0",
     "packages": [],
     "packages-dev": [
         {
@@ -345,7 +345,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CustomiesDevs/Customies.git",
-                "reference": "feature/pm5"
+                "reference": "master"
             },
             "type": "library",
             "autoload": {
@@ -685,12 +685,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonw4331/libCustomPack.git",
-                "reference": "4a5eb7cdc659797239c8a633bb27207148b6e4a4"
+                "reference": "7964ca62e0450468407badd2f872b22151df4b43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jasonw4331/libCustomPack/zipball/4a5eb7cdc659797239c8a633bb27207148b6e4a4",
-                "reference": "4a5eb7cdc659797239c8a633bb27207148b6e4a4",
+                "url": "https://api.github.com/repos/jasonw4331/libCustomPack/zipball/7964ca62e0450468407badd2f872b22151df4b43",
+                "reference": "7964ca62e0450468407badd2f872b22151df4b43",
                 "shasum": ""
             },
             "require": {
@@ -730,7 +730,7 @@
             "description": "A library for compiling and registering resource packs with PocketMine",
             "support": {
                 "issues": "https://github.com/jasonw4331/libCustomPack/issues",
-                "source": "https://github.com/jasonw4331/libCustomPack/tree/1.0.1"
+                "source": "https://github.com/jasonw4331/libCustomPack/tree/master"
             },
             "funding": [
                 {
@@ -742,7 +742,7 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://github.com/jasonwynn10 ] # Replace with up to 4 GitHub Sponsors-enabled usernames e.g.",
+                    "url": "https://github.com/jasonw4331 ] # Replace with up to 4 GitHub Sponsors-enabled usernames e.g.",
                     "type": "github"
                 },
                 {
@@ -754,7 +754,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-05-15T22:18:32+00:00"
+            "time": "2023-06-02T11:07:00+00:00"
         },
         {
             "name": "netresearch/jsonmapper",
