@@ -94,7 +94,7 @@ final class MiningDimension extends PluginBase{
 			'mining_portal' => [MiningPortal::class, BlockBreakInfo::indestructible(), new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)],
 		];
 		if($this->getConfig()->get('Sticky Ore', true) === true){
-			$toBeRegistered += ['sticky_ore' => [StickyOre::class, BlockBreakInfo::indestructible(), new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)]];
+			$toBeRegistered += ['sticky_ore' => [StickyOre::class, BlockBreakInfo::indestructible(), new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::GROUP_ORE)]];
 		}
 
 		/**
