@@ -19,6 +19,7 @@ use pocketmine\block\Air;
 use pocketmine\block\Block;
 use pocketmine\block\BlockBreakInfo;
 use pocketmine\block\BlockIdentifier;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\BlockTypeInfo;
 use pocketmine\block\Fire;
 use pocketmine\block\VanillaBlocks;
@@ -102,7 +103,7 @@ final class MiningDimension extends PluginBase{
 		 */
 		foreach($toBeRegistered as $blockName => $blockInfo){
 			$blockFactory->registerBlock(
-				static fn($id) => new $blockInfo[0](new BlockIdentifier($id), ucwords(str_replace('_', ' ', $blockName)), new BlockTypeInfo($blockInfo[1])),
+				static fn() => new $blockInfo[0](new BlockIdentifier(BlockTypeIds::newId()), ucwords(str_replace('_', ' ', $blockName)), new BlockTypeInfo($blockInfo[1])),
 				$namespace . $blockName,
 				null,
 				$blockInfo[2] ?? null,
